@@ -1,95 +1,55 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client'
+import React from "react";
+import styles from '@/app/page.module.css'
+import Cards from "@/app/components/Card";
+import List from "@/app/components/List";
+import Button_create from "@/app/components/Button_create";
+import YoutubeVideo from "@/app/components/YoutubeVideo";
+import Modal from "@/app/components/Modal";
+import Packages from "@/app/components/Packages";
+import Tittle from "@/app/components/Tittle";
+import Step_Container from "@/app/components/Step_Container";
+
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    const [openModal,setOpenModal] =
+        React.useState(false);
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+    const onSubmit = (event) => {
+        event.preventDefault();
+        setOpenModal(false);
+    };
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    return (
+        <main className={styles.main}>
+            <Tittle/>
+              <div>
+                  <Cards/>
+              </div>
+            <section className={styles.information}>
+                <YoutubeVideo videoId='OJ5FiH-dl30'/>
+                <List/>
+            </section>
+            <footer className={styles.footer}>
+                <Step_Container/>
+                <p className={styles.text}>
+                    ¿Quieres cambiarte a tu Conta? Nosotros nos encargamos de llevar <br/>
+                    a cabo la transición de toda tu contabilidad hasta el día de hoy.
+                </p>
+                <div className={styles.create_Btn}>
+                    <Button_create setOpenModal={setOpenModal} />
+                    <button className={styles.static_btn}>
+                        Agregar una cita con un contador experto
+                    </button>
+                </div>
+                {openModal && (
+                    <Modal>
+                        <div>
+                            <Packages onSubmit={onSubmit}/>
+                        </div>
+                    </Modal>
+                )}
+            </footer>
+        </main>
   )
 }
